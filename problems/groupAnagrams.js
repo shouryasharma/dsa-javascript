@@ -1,17 +1,20 @@
-const groupAnagrams = (words) => {
-  const anagramGroups = new Map();
+const groupAnagrams = (arr) => {
+  let [anagramMap, result] = [{}, []];
 
-  for (const word of words) {
-    const sortedChars = word.split("").sort().join("");
-
-    if (anagramGroups.has(sortedChars)) {
-      anagramGroups.get(sortedChars).push(word);
+  for (const str of arr) {
+    const sortedStr = str.split("").sort().join("");
+    if (anagramMap[sortedStr]) {
+      anagramMap[sortedStr].push(str);
     } else {
-      anagramGroups.set(sortedChars, [word]);
+      anagramMap[sortedStr] = [str];
     }
   }
 
-  return Array.from(anagramGroups.values());
+  for (const key in anagramMap) {
+    result.push(anagramMap[key]);
+  }
+
+  return result;
 };
 
-console.log(groupAnagrams(["cat", "act", "dog"]));
+console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
